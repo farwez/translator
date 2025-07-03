@@ -1,6 +1,6 @@
-python_version >=3.10,<3.13
 streamlit
 googletrans==4.0.0rc1
 gtts
 edge-tts
 streamlit-lottie
+requests
