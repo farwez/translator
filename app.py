@@ -9,6 +9,17 @@ import edge_tts
 import asyncio
 from gtts import gTTS
 
+# --- Hide Streamlit UI Elements ---
+hide_streamlit_style = """
+    <style>
+        #MainMenu {visibility: hidden;}     /* Hamburger menu */
+        footer {visibility: hidden;}        /* Made with Streamlit */
+        header {visibility: hidden;}        /* Streamlit header */
+        .css-1dp5vir {display: none;}       /* GitHub corner icon (if visible) */
+    </style>
+"""
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+
 # ------------------ Streamlit Page Config -------------------
 st.set_page_config(page_title="Translator ", layout="wide")
 
