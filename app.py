@@ -9,7 +9,6 @@ import edge_tts
 import asyncio
 from gtts import gTTS
 
-# --- Hide Streamlit UI Elements ---
 hide_streamlit_style = """
     <style>
         #MainMenu {visibility: hidden;}     /* Hamburger menu */
@@ -20,10 +19,8 @@ hide_streamlit_style = """
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
-# ------------------ Streamlit Page Config -------------------
 st.set_page_config(page_title="Translator ", layout="wide")
 
-# ------------------ Light/Dark Mode Toggle -------------------
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
 if theme == "Dark":
     st.markdown("""
@@ -79,7 +76,7 @@ else:
             }
         </style>
     """, unsafe_allow_html=True)
-# ------------------ Custom CSS Styling -------------------
+
 st.markdown("""
     <style>
         .main-title {
@@ -145,7 +142,7 @@ st.markdown("""
         }
     </style>
 """, unsafe_allow_html=True)
-# ------------------ Language Dictionary -------------------
+
 lang_dict = {
     'English': 'en',
     'Hindi': 'hi',
@@ -162,10 +159,8 @@ voice_dict = {
     "🎤 Anime-style (Jenny)": "en-US-JennyNeural"
 }
 
-# ------------------ Navigation -------------------
 menu = st.sidebar.radio("📍 Navigate", ["Home", "Translate Languages", "Voice Styles (English Only)", "About Creator", "Contact/Feedback"])
 
-# ------------------ Load Lottie Animation -------------------
 def load_lottieurl(url):
     try:
         r = requests.get(url)
@@ -177,7 +172,6 @@ def load_lottieurl(url):
 
 lottie_translation = load_lottieurl("https://assets4.lottiefiles.com/packages/lf20_2LdLki.json")
 
-# ------------------ Home -------------------
 if menu == "Home":
     st.markdown('<div class="main-title">🌐 Welcome to Translator Creator</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtext">Easily translate text into multiple languages and listen to it!</div>', unsafe_allow_html=True)
@@ -189,7 +183,7 @@ if menu == "Home":
 
     st.markdown("""
     <div class='home-section'>
-        <h3 style='color:#ffb347; font-size:1.5em; margin-bottom:10px;'>✨ Why Use This Translator?</h3>
+        <h3 style='color:#ffb347; font-size:1.5em; margin-bottom:10px;'>✨ Why to Use This Translator?</h3>
         <ul style='text-align: left; max-width: 500px; margin: auto; font-size:1em; line-height:1.6;'>
             <li>🔁 Instantly translate your text into 6+ languages</li>
             <li>🎧 Listen to your translation in different voices</li>
@@ -225,7 +219,6 @@ if menu == "Home":
     </style>
     """, unsafe_allow_html=True)
 
-# ------------------ Translate Languages -------------------
 elif menu == "Translate Languages":
     st.markdown('<div class="main-title">🌍 Language Translator</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtext">Translate text into multiple languages and listen to it (speech support varies).</div>', unsafe_allow_html=True)
@@ -276,7 +269,6 @@ elif menu == "Translate Languages":
             except Exception as e:
                 st.error(f"❌ Translation Error: {e}")
 
-# ------------------ Voice Styles -------------------
 elif menu == "Voice Styles (English Only)":
     st.markdown('<div class="main-title">🔊 Voice Styles</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtext">Choose a voice style to hear English text spoken aloud.</div>', unsafe_allow_html=True)
@@ -312,12 +304,11 @@ elif menu == "Voice Styles (English Only)":
                 b64_audio = base64.b64encode(audio_bytes).decode()
                 download_link = f'<a href="data:audio/mp3;base64,{b64_audio}" download="voice_output.mp3">📅 Click to Download MP3</a>'
                 st.markdown(download_link, unsafe_allow_html=True)
-# ------------------ About Creator -------------------
+
 elif menu == "About Creator":
     st.markdown('<div class="main-title">👨‍💻 About the Creator</div>', unsafe_allow_html=True)
 
-    # Load animated developer logo
-    logo_url = "https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json"  # Cool animated developer avatar
+    logo_url = "https://assets10.lottiefiles.com/packages/lf20_jcikwtux.json"  
     logo_json = load_lottieurl(logo_url)
 
     if logo_json:
@@ -353,14 +344,14 @@ elif menu == "About Creator":
         </blockquote>
         </div>
     """, unsafe_allow_html=True)
-# ------------------ Feedback/Contact -------------------
+
 elif menu == "Contact/Feedback":
     st.markdown('<div class="main-title">📬 Contact & Feedback</div>', unsafe_allow_html=True)
     st_lottie(load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_kkflmtur.json"), speed=1, height=250, key="contact-lottie")
     st.markdown("""
        We'd love to hear your thoughts!
        - 📧 Email: mohammadfarwez23@gmail.com  
-       - 📱 Instagram: [@munna_23](https://www.instagram.com/i_faruuu
+       - 📱 Instagram: [@i_faruuu](https://www.instagram.com/i_faruuu)
         /)
     """, unsafe_allow_html=True)
     with st.form("feedback_form"):
