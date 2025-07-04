@@ -351,7 +351,7 @@ elif menu == "Contact/Feedback":
     st.markdown("""
        We'd love to hear your thoughts!
        - 📧 Email: mohammadfarwez23@gmail.com  
-       - 📱 Instagram: [@i_faruuu](https://www.instagram.com/i_faruuu)
+       - 📱 Instagram: [@i_faruuu](https://www.instagram.com/i_faruuu
         /)
     """, unsafe_allow_html=True)
     with st.form("feedback_form"):
