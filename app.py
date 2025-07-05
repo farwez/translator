@@ -9,18 +9,19 @@ import edge_tts
 import asyncio
 from gtts import gTTS
 
-hide_streamlit_style = """
+show_streamlit_style = """
     <style>
-        #MainMenu {visibility: hidden;}     /* Hamburger menu */
-        footer {visibility: hidden;}        /* Made with Streamlit */
-        header {visibility: hidden;}        /* Streamlit header */
-        .css-1dp5vir {display: none;}       /* GitHub corner icon (if visible) */
+        /* Commenting out the lines that hide Streamlit elements */
+
+        /* #MainMenu {visibility: hidden;} */    /* Hamburger menu */
+        /* footer {visibility: hidden;} */       /* Made with Streamlit */
+        /* header {visibility: hidden;} */       /* Streamlit header */
+        /* .css-1dp5vir {display: none;} */      /* GitHub corner icon */
     </style>
 """
-st.markdown(hide_streamlit_style, unsafe_allow_html=True)
+st.markdown(show_streamlit_style, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Translator ", layout="wide")
-
+st.set_page_config(page_title="Translator", layout="wide")
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
 if theme == "Dark":
     st.markdown("""
