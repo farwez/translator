@@ -19,7 +19,7 @@ st.markdown("""
             display: none !important;
         }
 
-        /* ✅ Force sidebar to be visible */
+        /* ✅ Force sidebar to stay visible */
         [data-testid="stSidebar"] {
             visibility: visible !important;
             width: 260px !important;
@@ -27,16 +27,16 @@ st.markdown("""
             display: block !important;
         }
 
-        /* ✅ Keep sidebar toggle button ( << ) visible */
+        /* ✅ Keep sidebar toggle visible */
         [data-testid="collapsedControl"] {
             display: block !important;
         }
     </style>
 """, unsafe_allow_html=True)
 
-
-
+# ---------------------------
 st.set_page_config(page_title="Translator", layout="wide")
+
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
 if theme == "Dark":
     st.markdown("""
