@@ -10,31 +10,30 @@ import asyncio
 from gtts import gTTS
 
 st.markdown("""
-    <style>
-        /* ✅ Hide Share / Edit / Star / GitHub only */
-        [title="Share"],
-        [title="Edit"],
-        [title="Star this app"],
-        .css-1dp5vir {
-            display: none !important;
-        }
+<style>
+/* ✅ Hide only the top-right toolbar icons */
+[title="Share"],
+[title="Edit"],
+[title="Star this app"],
+a[href*='github.com'] {
+    display: none !important;
+}
 
-        /* ✅ Force sidebar to stay visible */
-        [data-testid="stSidebar"] {
-            visibility: visible !important;
-            width: 260px !important;
-            min-width: 260px !important;
-            display: block !important;
-        }
+/* ✅ Keep sidebar always visible */
+section[data-testid="stSidebar"] {
+    visibility: visible !important;
+    width: 250px !important;
+    min-width: 250px !important;
+    display: block !important;
+}
 
-        /* ✅ Keep sidebar toggle visible */
-        [data-testid="collapsedControl"] {
-            display: block !important;
-        }
-    </style>
+/* ✅ Show sidebar toggle ( << ) */
+button[data-testid="collapsedControl"] {
+    display: block !important;
+}
+</style>
 """, unsafe_allow_html=True)
 
-# ---------------------------
 st.set_page_config(page_title="Translator", layout="wide")
 
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
