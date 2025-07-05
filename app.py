@@ -356,21 +356,30 @@ elif menu == "Contact/Feedback":
        - 📱 Instagram: [@i_faruuu](https://www.instagram.com/i_faruuu
         /)
     """, unsafe_allow_html=True)
-    with st.form("feedback_form"):
-        name = st.text_input("Name")
-        email = st.text_input("Email")
-        msg = st.text_area("Message")
-        submitted = st.form_submit_button("Submit Feedback")
-        if submitted:
-            if name and email and msg:
-                st.markdown(f"""
-                <form action="https://formspree.io/f/xqabjlag" method="POST">
-                  <input type="text" name="name" value="{name}" hidden>
-                  <input type="email" name="email" value="{email}" hidden>
-                  <textarea name="message" hidden>{msg}</textarea>
-                  <button type="submit">Send</button>
-                </form>
-                """, unsafe_allow_html=True)
+lottie_submit = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_touohxv0.json")
+
+with st.form("feedback_form"):
+    name = st.text_input("Name")
+    email = st.text_input("Email")
+    msg = st.text_area("Message")
+    submitted = st.form_submit_button("Submit Feedback")
+
+    if submitted:
+        if name and email and msg:
+            payload = {
+                "name": name,
+                "email": email,
+                "message": msg
+            }
+            response = requests.post("https://formspree.io/f/xqabjlag", data=payload)
+
+            if response.status_code == 200:
+                st.success("✅ Feedback sent successfully!")
+                st.balloons()
+                if lottie_submit:
+                    st_lottie(lottie_submit, height=250)
             else:
-                st.warning("⚠️ Please fill all fields.")
+                st.error("❌ Failed to send feedback.")
+        else:
+            st.warning("⚠️ Please fill all fields.")
 
