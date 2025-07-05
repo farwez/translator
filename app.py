@@ -9,16 +9,33 @@ import edge_tts
 import asyncio
 from gtts import gTTS
 
-show_streamlit_style = """
+st.markdown("""
     <style>
-        /* Commenting out the lines that hide Streamlit elements */
-
-        /* #MainMenu {visibility: hidden;} */    /* Hamburger menu */
-        /* footer {visibility: hidden;} */       /* Made with Streamlit */
-        /* .css-1dp5vir {display: none;} */      /* GitHub corner icon */
+        /* Hide top-right control icons (Share, Star, Edit, GitHub, Menu) */
+        .stActionButton, 
+        [data-testid="stToolbar"], 
+        .stMarkdownContainer div:nth-child(1) > div > div:nth-child(2),
+        .css-1dp5vir {  /* GitHub icon class */
+            visibility: hidden !important;
+            display: none !important;
+        }
     </style>
-"""
-st.markdown(show_streamlit_style, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
+# Hide top toolbar icons
+st.markdown("""
+    <style>
+        [data-testid="stToolbar"] {
+            visibility: hidden !important;
+            height: 0px !important;
+        }
+        .css-1dp5vir {
+            display: none !important; /* GitHub icon */
+        }
+        .stActionButton {
+            display: none !important;
+        }
+    </style>
+""", unsafe_allow_html=True)
 
 st.set_page_config(page_title="Translator", layout="wide")
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
