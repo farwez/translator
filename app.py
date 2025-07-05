@@ -359,18 +359,12 @@ elif menu == "Contact/Feedback":
 
 lottie_submit = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_touohxv0.json")
 
-# Initialize session flag
-if "feedback_submitted" not in st.session_state:
-    st.session_state.feedback_submitted = False
+# Track feedback submission
+if "feedback_sent" not in st.session_state:
+    st.session_state.feedback_sent = False
 
-# Show success animation AFTER form submission
-if st.session_state.feedback_submitted:
-    st.success("✅ Feedback sent successfully!")
-    st.balloons()
-    if lottie_submit:
-        st_lottie(lottie_submit, height=250)
-
-else:
+# Feedback form
+if not st.session_state.feedback_sent:
     with st.form("feedback_form"):
         name = st.text_input("Name")
         email = st.text_input("Email")
@@ -385,11 +379,16 @@ else:
                     "message": msg
                 }
                 response = requests.post("https://formspree.io/f/xqabjlag", data=payload)
-
                 if response.status_code == 200:
-                    st.session_state.feedback_submitted = True
-                    st.experimental_rerun()  # 🔁 force app to re-render outside the form
+                    st.session_state.feedback_sent = True
                 else:
                     st.error("❌ Failed to send feedback.")
             else:
                 st.warning("⚠️ Please fill all fields.")
+else:
+    st.success("✅ Feedback sent successfully!")
+    st.balloons()
+    if lottie_submit:
+        st_lottie(lottie_submit, height=250)
+    if st.button("✏️ Submit Another Response"):
+        st.session_state.feedback_sent = False
