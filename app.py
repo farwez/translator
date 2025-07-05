@@ -10,28 +10,15 @@ import asyncio
 from gtts import gTTS
 
 st.markdown("""
-<style>
-/* ✅ Hide only the top-right toolbar icons */
-[title="Share"],
-[title="Edit"],
-[title="Star this app"],
-a[href*='github.com'] {
-    display: none !important;
-}
-
-/* ✅ Keep sidebar always visible */
-section[data-testid="stSidebar"] {
-    visibility: visible !important;
-    width: 250px !important;
-    min-width: 250px !important;
-    display: block !important;
-}
-
-/* ✅ Show sidebar toggle ( << ) */
-button[data-testid="collapsedControl"] {
-    display: block !important;
-}
-</style>
+    <style>
+        /* Hide top-right toolbar icons */
+        [title="Share"],
+        [title="Edit"],
+        [title="Star this app"],
+        a[href*='github.com'] {
+            display: none !important;
+        }
+    </style>
 """, unsafe_allow_html=True)
 
 st.set_page_config(page_title="Translator", layout="wide")
