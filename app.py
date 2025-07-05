@@ -11,31 +11,24 @@ from gtts import gTTS
 
 st.markdown("""
     <style>
-        /* Hide top-right control icons (Share, Star, Edit, GitHub, Menu) */
-        .stActionButton, 
-        [data-testid="stToolbar"], 
-        .stMarkdownContainer div:nth-child(1) > div > div:nth-child(2),
-        .css-1dp5vir {  /* GitHub icon class */
-            visibility: hidden !important;
-            display: none !important;
-        }
-    </style>
-""", unsafe_allow_html=True)
-# Hide top toolbar icons
-st.markdown("""
-    <style>
-        [data-testid="stToolbar"] {
-            visibility: hidden !important;
-            height: 0px !important;
-        }
+        /* ✅ Hide only specific icons — not the entire toolbar */
+        /* GitHub icon */
         .css-1dp5vir {
-            display: none !important; /* GitHub icon */
-        }
-        .stActionButton {
             display: none !important;
         }
+
+        /* Share, Edit, Star buttons inside the toolbar */
+        [data-testid="stToolbar"] button[title="Share"],
+        [data-testid="stToolbar"] button[title="Edit"],
+        [data-testid="stToolbar"] button[title="Star"] {
+            display: none !important;
+        }
+
+        /* ❌ Do NOT hide stToolbar itself — or you lose the sidebar toggle */
+        /* [data-testid="stToolbar"] { visibility: hidden; } — REMOVE THIS */
     </style>
 """, unsafe_allow_html=True)
+
 
 st.set_page_config(page_title="Translator", layout="wide")
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
