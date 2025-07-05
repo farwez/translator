@@ -15,7 +15,6 @@ show_streamlit_style = """
 
         /* #MainMenu {visibility: hidden;} */    /* Hamburger menu */
         /* footer {visibility: hidden;} */       /* Made with Streamlit */
-        /* header {visibility: hidden;} */       /* Streamlit header */
         /* .css-1dp5vir {display: none;} */      /* GitHub corner icon */
     </style>
 """
