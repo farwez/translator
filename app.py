@@ -11,21 +11,25 @@ from gtts import gTTS
 
 st.markdown("""
     <style>
-        /* ✅ Hide only Share, Star, Edit, GitHub buttons */
-        [title="Share"],
-        [title="Edit"],
-        [title="Star this app"],
-        .css-1dp5vir {  /* GitHub icon */
+        /* ✅ Hide top-right toolbar container entirely */
+        header > div:nth-child(1) {
             display: none !important;
         }
 
-        /* ✅ Keep the sidebar toggle (<<) visible and working */
+        /* ✅ Ensure sidebar is always visible */
         [data-testid="stSidebar"] {
-            min-width: 260px;
-            width: 260px;
+            min-width: 260px !important;
+            width: 260px !important;
+        }
+
+        /* ✅ Keep the sidebar toggle ( << ) visible */
+        [data-testid="collapsedControl"] {
+            display: block !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
+
 st.set_page_config(page_title="Translator", layout="wide")
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
 if theme == "Dark":
