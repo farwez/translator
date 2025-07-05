@@ -11,25 +11,21 @@ from gtts import gTTS
 
 st.markdown("""
     <style>
-        /* ✅ Hide only specific icons — not the entire toolbar */
-        /* GitHub icon */
-        .css-1dp5vir {
+        /* ✅ Hide only Share, Star, Edit, GitHub buttons */
+        [title="Share"],
+        [title="Edit"],
+        [title="Star this app"],
+        .css-1dp5vir {  /* GitHub icon */
             display: none !important;
         }
 
-        /* Share, Edit, Star buttons inside the toolbar */
-        [data-testid="stToolbar"] button[title="Share"],
-        [data-testid="stToolbar"] button[title="Edit"],
-        [data-testid="stToolbar"] button[title="Star"] {
-            display: none !important;
+        /* ✅ Keep the sidebar toggle (<<) visible and working */
+        [data-testid="stSidebar"] {
+            min-width: 260px;
+            width: 260px;
         }
-
-        /* ❌ Do NOT hide stToolbar itself — or you lose the sidebar toggle */
-        /* [data-testid="stToolbar"] { visibility: hidden; } — REMOVE THIS */
     </style>
 """, unsafe_allow_html=True)
-
-
 st.set_page_config(page_title="Translator", layout="wide")
 theme = st.sidebar.radio("🌗 Theme", ["Light", "Dark"])
 if theme == "Dark":
