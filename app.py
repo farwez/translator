@@ -11,23 +11,29 @@ from gtts import gTTS
 
 st.markdown("""
     <style>
-        /* ✅ Hide top-right toolbar container entirely */
-        header > div:nth-child(1) {
+        /* ✅ Hide Share / Edit / Star / GitHub only */
+        [title="Share"],
+        [title="Edit"],
+        [title="Star this app"],
+        .css-1dp5vir {
             display: none !important;
         }
 
-        /* ✅ Ensure sidebar is always visible */
+        /* ✅ Force sidebar to be visible */
         [data-testid="stSidebar"] {
-            min-width: 260px !important;
+            visibility: visible !important;
             width: 260px !important;
+            min-width: 260px !important;
+            display: block !important;
         }
 
-        /* ✅ Keep the sidebar toggle ( << ) visible */
+        /* ✅ Keep sidebar toggle button ( << ) visible */
         [data-testid="collapsedControl"] {
             display: block !important;
         }
     </style>
 """, unsafe_allow_html=True)
+
 
 
 st.set_page_config(page_title="Translator", layout="wide")
