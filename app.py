@@ -350,45 +350,45 @@ elif menu == "About Creator":
 elif menu == "Contact/Feedback":
     st.markdown('<div class="main-title">📬 Contact & Feedback</div>', unsafe_allow_html=True)
     st_lottie(load_lottieurl("https://assets1.lottiefiles.com/packages/lf20_kkflmtur.json"), speed=1, height=250, key="contact-lottie")
+    
     st.markdown("""
        We'd love to hear your thoughts!
        - 📧 Email: mohammadfarwez23@gmail.com  
-       - 📱 Instagram: [@i_faruuu](https://www.instagram.com/i_faruuu
-        /)
+       - 📱 Instagram: [@i_faruuu](https://www.instagram.com/i_faruuu/)
     """, unsafe_allow_html=True)
 
-lottie_submit = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_touohxv0.json")
+    lottie_submit = load_lottieurl("https://assets9.lottiefiles.com/packages/lf20_touohxv0.json")
 
-# Track feedback submission
-if "feedback_sent" not in st.session_state:
-    st.session_state.feedback_sent = False
-
-# Feedback form
-if not st.session_state.feedback_sent:
-    with st.form("feedback_form"):
-        name = st.text_input("Name")
-        email = st.text_input("Email")
-        msg = st.text_area("Message")
-        submitted = st.form_submit_button("Submit Feedback")
-
-        if submitted:
-            if name and email and msg:
-                payload = {
-                    "name": name,
-                    "email": email,
-                    "message": msg
-                }
-                response = requests.post("https://formspree.io/f/xqabjlag", data=payload)
-                if response.status_code == 200:
-                    st.session_state.feedback_sent = True
-                else:
-                    st.error("❌ Failed to send feedback.")
-            else:
-                st.warning("⚠️ Please fill all fields.")
-else:
-    st.success("✅ Feedback sent successfully!")
-    st.balloons()
-    if lottie_submit:
-        st_lottie(lottie_submit, height=250)
-    if st.button("✏️ Submit Another Response"):
+    # Track feedback submission
+    if "feedback_sent" not in st.session_state:
         st.session_state.feedback_sent = False
+
+    # Feedback form
+    if not st.session_state.feedback_sent:
+        with st.form("feedback_form"):
+            name = st.text_input("Name")
+            email = st.text_input("Email")
+            msg = st.text_area("Message")
+            submitted = st.form_submit_button("Submit Feedback")
+
+            if submitted:
+                if name and email and msg:
+                    payload = {
+                        "name": name,
+                        "email": email,
+                        "message": msg
+                    }
+                    response = requests.post("https://formspree.io/f/xqabjlag", data=payload)
+                    if response.status_code == 200:
+                        st.session_state.feedback_sent = True
+                    else:
+                        st.error("❌ Failed to send feedback.")
+                else:
+                    st.warning("⚠️ Please fill all fields.")
+    else:
+        st.success("✅ Feedback sent successfully!")
+        st.balloons()
+        if lottie_submit:
+            st_lottie(lottie_submit, height=250)
+        if st.button("✏️ Submit Another Response"):
+            st.session_state.feedback_sent = False
