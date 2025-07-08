@@ -158,7 +158,7 @@ voice_dict = {
     "👩 Female (Aria)": "en-US-AriaNeural",
     "🤖 MALE Robot()": 	"en-US-ChristopherNeural",
     "👦 Male (Guy)": "en-US-GuyNeural",
-    "🎤 Base Male (   )": "en-US-BrandonNeural"
+    "🎤 Base Male (   )": "en-US-AndrewNeural"
 }
 
 menu = st.sidebar.radio("📍 Navigate", ["Home", "Translate Languages", "Voice Styles (English Only)", "About Creator", "Contact/Feedback"])
