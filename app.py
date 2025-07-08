@@ -161,8 +161,7 @@ voice_dict = {
     "🎤 Base Male (   )": "en-US-AndrewNeural",
     " ₹Male2()": "en-US-ChristopherNeural",
     " ₹Male3()" : "en-AU-WilliamNeural",
-    "  ₹Male4()" : "en-US-BrandonNeural",
-     "₹Male5()" : "en-GB-RyanNeural"
+     "₹Male4()" : "en-GB-RyanNeural"
 }
 
 menu = st.sidebar.radio("📍 Navigate", ["Home", "Translate Languages", "Voice Styles (English Only)", "About Creator", "Contact/Feedback"])
