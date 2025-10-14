@@ -1,4 +1,4 @@
-🌐 Translator Creator
+Translator
 
 ✨ Your multilingual voice assistant — translate, speak, and listen in seconds!
 
@@ -30,7 +30,7 @@ User Flow
 👨‍💻 About Creator: Know the developer
 📬 Contact/Feedback: Send feedback via form
 
-Tech Stack
+🤖Tech Stack
 
 Category	Tools Used
 Frontend	Streamlit, CSS, Lottie Animations
@@ -38,3 +38,8 @@ Translation	Googletrans
 Text-to-Speech	Edge-TTS, gTTS
 Feedback Form	Formspree API
 Media Handling	Base64, Tempfile
+
+⭐ Show Some Love
+
+If you like this project, don’t forget to give it a ⭐ on GitHub!
+Let’s make multilingual communication easier together 🌏💬
