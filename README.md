@@ -1,4 +1,4 @@
-#Translator
+Translator
 
 ✨ Your multilingual voice assistant — translate, speak, and listen in seconds!
 
