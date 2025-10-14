@@ -1,4 +1,4 @@
-Translator
+#Translator
 
 ✨ Your multilingual voice assistant — translate, speak, and listen in seconds!
 
@@ -6,8 +6,9 @@ Translator
 
 Translator Creator is a smart Streamlit-powered web app that lets you translate text into multiple languages, hear it in natural AI voices, and even download the audio — all wrapped in a beautiful, responsive UI.
 
+*****************************************************************
 LIVE VIEW:https://translator-311madewithpassion.streamlit.app/
-
+*****************************************************************
 
 🧠 Built using:
 Python · Streamlit · Googletrans · Edge-TTS · gTTS · Formspree · Lottie Animations
