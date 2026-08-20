@@ -1,6 +1,10 @@
-streamlit
-googletrans==4.0.0rc1
-gtts
-edge-tts
+streamlit>=1.24.0
+deep-translator
 streamlit-lottie
 requests
+edge-tts
+gTTS
+streamlit-option-menu
+streamlit-mic-recorder
+langdetect
+PyPDF2
