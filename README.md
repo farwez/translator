@@ -466,5 +466,5 @@ If you found **Translator** useful or interesting, consider giving the repositor
 </p>
 
 <p align="center">
-  Made with ❤️ and Python
+  Made with ❤️
 </p>
