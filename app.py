@@ -17,18 +17,12 @@ try:
 except ImportError:
     LANGDETECT_AVAILABLE = False
 
-# ==========================
-# PAGE CONFIG & CSS
-# ==========================
 st.set_page_config(page_title="Translator Pro", layout="wide", page_icon="🌐")
 
 st.markdown("""
     <style>
-        /* Hide Streamlit default elements except MainMenu so users can change theme natively */
-        /* Hiding header also hides the sidebar toggle and settings menu, so we keep it visible */
         footer {visibility: hidden;}
         
-        /* SaaS Style Enhancements */
         .main-title {
             font-size: 2.5em;
             font-weight: 800;
@@ -89,7 +83,6 @@ st.markdown("""
             color: #2196F3; padding: 3px 10px; border-radius: 20px;
             font-size: 0.8em; font-weight: 600; margin-left: 8px;
         }
-        /* Responsive design for Mobile Compatability */
         @media (max-width: 768px) {
             .main-title { font-size: 1.8em; }
             .subtext { font-size: 0.95em; margin-bottom: 15px; }
@@ -102,16 +95,12 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# JS clipboard helper
 def copy_to_clipboard_js(text):
     escaped = text.replace("'", "\\'").replace("\n", "\\n")
     return f"""
     <button class="copy-btn" onclick="navigator.clipboard.writeText('{escaped}').then(()=>{{this.innerText='✅ Copied!';setTimeout(()=>this.innerText='📋 Copy Translation',1500)}})">📋 Copy Translation</button>
     """
 
-# ==========================
-# CONSTANTS & DICTS
-# ==========================
 lang_dict = {
     'English': 'en', 'Hindi': 'hi', 'Telugu': 'te', 'Tamil': 'ta', 'French': 'fr',
     'Spanish': 'es', 'German': 'de', 'Italian': 'it', 'Portuguese': 'pt',
@@ -130,9 +119,6 @@ voice_dict = {
     "👨 Male (Ryan - UK)": "en-GB-RyanNeural"
 }
 
-# ==========================
-# UTILS
-# ==========================
 @st.cache_data(ttl=3600, show_spinner=False)
 def load_lottieurl(url):
     try:
@@ -159,7 +145,6 @@ def get_audio_player(audio_path, download_name="audio.mp3"):
         """
         return html
 
-# Initialize session state
 if "history" not in st.session_state:
     st.session_state.history = []
 if "total_words" not in st.session_state:
@@ -167,9 +152,6 @@ if "total_words" not in st.session_state:
 if "total_chars" not in st.session_state:
     st.session_state.total_chars = 0
 
-# ==========================
-# NAVIGATION (Sidebar)
-# ==========================
 with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     menu = option_menu(
@@ -185,17 +167,12 @@ with st.sidebar:
             "nav-link-selected": {"background-color": "rgba(76, 175, 80, 0.1)", "color": "#4CAF50", "font-weight": "bold"},
         }
     )
-    # Stats in sidebar
     if st.session_state.history:
         st.markdown("---")
         st.markdown(f"📊 **{len(st.session_state.history)}** translations this session")
         st.markdown(f"✍️ **{st.session_state.total_words}** words processed")
 
-# ==========================
-# PAGES
-# ==========================
 if menu == "Home":
-    # ── Hero: single markdown block = one paint ──
     st.markdown(
         '<div style="display:flex;gap:40px;align-items:center;padding:20px 0 10px;">'
         '<div style="flex:1.3;">'
@@ -218,7 +195,6 @@ if menu == "Home":
     st.markdown("---")
 
 
-    # ── Feature Cards ──
     st.markdown('<h3 style="text-align:center; margin-bottom:20px; font-size:1.4em;">✨ What You Can Do</h3>', unsafe_allow_html=True)
 
     f1, f2, f3, f4 = st.columns(4)
@@ -241,7 +217,6 @@ if menu == "Home":
 
     st.markdown("<br>", unsafe_allow_html=True)
 
-    # ── How It Works (numbered steps) + Language Grid ──
     col_steps, col_langs = st.columns([1, 1.2], gap="large")
 
     with col_steps:
@@ -280,7 +255,6 @@ elif menu == "Translate":
     st.markdown('<div class="main-title">🌍 Translation Studio</div>', unsafe_allow_html=True)
     st.markdown('<div class="subtext">Translate text or spoken voice across 20+ languages with neural audio playback.</div>', unsafe_allow_html=True)
 
-    # Top Toolbar / Language Config
     t_col1, t_col2 = st.columns([1, 1], gap="medium")
     with t_col1:
         st.markdown("<span class='tag-badge'>🌐 Source: Auto-Detect</span>", unsafe_allow_html=True)
@@ -289,7 +263,6 @@ elif menu == "Translate":
         st.markdown("<span class='tag-badge' style='background: rgba(33, 150, 243, 0.12); color: #2196F3;'>🎯 Destination Language</span>", unsafe_allow_html=True)
         target_lang = st.selectbox("Destination Language:", list(lang_dict.keys()), label_visibility="collapsed")
 
-    # ── File Upload ──
     with st.expander("📄 Upload a File to Translate (.txt or .pdf)", expanded=False):
         uploaded_file = st.file_uploader("Upload file", type=["txt", "pdf"], label_visibility="collapsed")
         if uploaded_file:
@@ -304,21 +277,19 @@ elif menu == "Translate":
                     file_text = ""
                     st.warning("⚠️ PDF support requires PyPDF2. Install it with: pip install PyPDF2")
             if file_text.strip():
-                st.session_state["file_text"] = file_text[:3000]  # cap at 3000 chars
+                st.session_state["file_text"] = file_text[:3000]
                 st.success(f"✅ Loaded {len(file_text)} characters from **{uploaded_file.name}**")
                 st.text_area("Preview (first 500 chars):", file_text[:500], height=100, disabled=True)
 
-    # Main Translation Workbench
     col1, col2 = st.columns([1, 1], gap="medium")
 
     with col1:
         st.markdown("#### 📝 Original Text")
-        # Priority: spoken > file > quick phrase > empty
         if spoken_text:
             default_text = spoken_text
         elif "file_text" in st.session_state and st.session_state.file_text:
             default_text = st.session_state.file_text
-            st.session_state.file_text = ""  # consume once
+            st.session_state.file_text = ""
         else:
             default_text = st.session_state.get("quick_text", "")
 
@@ -326,12 +297,10 @@ elif menu == "Translate":
                                    placeholder="Type here, use the mic, or upload a file above...",
                                    label_visibility="collapsed", key="main_text_input")
 
-        # Character counter
         char_count = len(text_input)
         word_count = len(text_input.split()) if text_input.strip() else 0
         st.markdown(f"<div class='char-counter'>✍️ {word_count} words &nbsp;|&nbsp; {char_count} characters</div>", unsafe_allow_html=True)
 
-        # Auto language detection badge
         if text_input.strip() and LANGDETECT_AVAILABLE:
             try:
                 detected_code = detect(text_input)
@@ -346,7 +315,6 @@ elif menu == "Translate":
             except:
                 pass
 
-        # Quick phrase chips
         st.markdown("<small style='opacity: 0.7;'>⚡ Quick Phrases:</small>", unsafe_allow_html=True)
         q1, q2 = st.columns(2)
         with q1:
@@ -373,7 +341,6 @@ elif menu == "Translate":
                 try:
                     translated = GoogleTranslator(source='auto', target=lang_dict[target_lang]).translate(text_input)
 
-                    # Save to history
                     now = datetime.now()
                     st.session_state.history.append({
                         "src": text_input,
@@ -384,7 +351,6 @@ elif menu == "Translate":
                     })
                     st.session_state.total_words += len(text_input.split())
                     st.session_state.total_chars += len(text_input)
-                    # Clear quick_text after use
                     st.session_state.pop("quick_text", None)
 
                     with col2:
@@ -395,10 +361,8 @@ elif menu == "Translate":
                             unsafe_allow_html=True
                         )
                         st.success(f"✅ Translated to **{target_lang}**")
-                        # Copy to clipboard button
                         st.markdown(copy_to_clipboard_js(translated), unsafe_allow_html=True)
 
-                        # Share text button
                         share_text = f"🌐 Translator Pro\n\nOriginal: {text_input}\n\n{target_lang} Translation: {translated}"
                         st.download_button(
                             label="📤 Download as Text",
@@ -407,7 +371,6 @@ elif menu == "Translate":
                             mime="text/plain"
                         )
 
-                    # Generate Audio
                     audio_path = None
                     if lang_dict[target_lang] == 'en':
                         import edge_tts
@@ -476,7 +439,6 @@ elif menu == "History":
             key=lambda l: sum(1 for h in st.session_state.history if h["lang"] == l)
         )
 
-        # ── Stats Row ──
         s1, s2, s3, s4 = st.columns(4)
         with s1:
             st.metric("📄 Translations", total)
@@ -489,7 +451,6 @@ elif menu == "History":
 
         st.markdown("<br>", unsafe_allow_html=True)
 
-        # ── Toolbar: Search + Export + Clear ──
         act_col1, act_col2, act_col3 = st.columns([2, 1, 1])
         with act_col1:
             search_query = st.text_input("", placeholder="🔍 Search by keyword or language...", label_visibility="collapsed")
@@ -510,7 +471,6 @@ elif menu == "History":
 
         st.markdown("---")
 
-        # ── Filter ──
         all_items = list(reversed(st.session_state.history))
         if search_query.strip():
             q = search_query.strip().lower()
@@ -524,19 +484,16 @@ elif menu == "History":
                         unsafe_allow_html=True)
             st.markdown("<br>", unsafe_allow_html=True)
 
-            # ── Group by Date ──
             from itertools import groupby
             def get_date(item):
                 return item.get("date", "Today")
 
-            # Stable sort by date (already reversed = newest first)
             groups = {}
             for item in all_items:
                 d = get_date(item)
                 groups.setdefault(d, []).append(item)
 
             for date_label, items in groups.items():
-                # Date divider
                 st.markdown(
                     f'<div style="display:flex; align-items:center; gap:12px; margin:20px 0 14px;">'
                     f'<div style="flex:1; height:1px; background:rgba(128,128,128,0.2);"></div>'
